@@ -17,6 +17,8 @@ const FormInput = ({ name, label, required }) => {
             label={label}
             required={required}
             fullWidth
+            size="large"
+            variant='outlined'
           />
         )}
         />

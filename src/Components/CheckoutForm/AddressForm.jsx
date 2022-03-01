@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { InputLabel, Select, MenuItem, Button, Grid, Typography } from '@material-ui/core';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import {commerce} from '../../lib/commerce';
 
 import FormInput from './FormInput';
+import makeStyles from './addressFormStyles';
 
 const AddressForm = ({ checkoutToken, next }) => {
+    const classes = makeStyles();
     const methods = useForm();
+    const { handleSubmit, control, errors, setValue } = useForm({
+        defaultValues: {"shippingCountry": "Something"}
+    });
+
+    useEffect(() => {
+          setValue("shippingCountry", "India");
+      });
+
+
     const [shippingCountries, setShippingCountries] = useState([]);
     const [shippingCountry, setShippingCountry] = useState('');
     const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
@@ -59,7 +70,8 @@ const AddressForm = ({ checkoutToken, next }) => {
 
   return (
     <>
-        <Typography variant = "h6" gutterBottom>Shipping Address</Typography>
+        <Typography variant = "h6" gutterBottom>Shipping Information</Typography>
+        <br />
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit((data) => next({ ...data, shippingCountry, shippingSubdivision, shippingOption}))} >
                 <Grid container spacing={3}>
@@ -71,18 +83,17 @@ const AddressForm = ({ checkoutToken, next }) => {
                     <FormInput required name="ZIP" label="ZIP / Postal Code"/>
                     <Grid item xs={12} sm={6}>
                         <InputLabel>Shipping Country</InputLabel>
-                        <Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
+                        <Select variant="outlined" value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
                             {countries.map((country) => (
                                 <MenuItem key={country.id} value={country.id}>
                                 {country.label}
                             </MenuItem>
                             ))}
-                            
                         </Select>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <InputLabel>Shipping Subdivision</InputLabel>
-                        <Select value={shippingSubdivision} fullWidth onChange={(e) => setShippingSubdivision(e.target.value)}>
+                        <Select defaultValue={{ label: "Select Shipping Value", value: null}} variant="outlined" value={shippingSubdivision} fullWidth onChange={(e) => setShippingSubdivision(e.target.value)}>
                             {subdivisions.map((subdivision) => (
                                 <MenuItem key={subdivision.id} value={subdivision.id}>
                                 {subdivision.label}
@@ -92,8 +103,8 @@ const AddressForm = ({ checkoutToken, next }) => {
                         </Select>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <InputLabel>Shipping Options</InputLabel>
-                        <Select value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
+                        <InputLabel gutterBottom>Shipping Options</InputLabel>
+                        <Select defaultValue={{ label: "Select Shipping Value", value: {}}} variant="outlined" value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
                         {options.map((option) => (
                                 <MenuItem key={option.id} value={option.id}>
                                 {option.label}
@@ -103,9 +114,11 @@ const AddressForm = ({ checkoutToken, next }) => {
                     </Grid>
                 </Grid>
                 <br />
+                <br />
                 <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <Button component = { Link } to='/cart' variant="outlined">Back to Cart</Button>
-                        <Button type="submit" variant="contained" color="secondary">Next</Button>
+                        <Button className={classes.emptyButton} component = { Link } to='/cart' size="large" type="button" variant="contained" color="primary">Back to Cart</Button>
+                        <Button type="submit" variant="contained" className={classes.checkoutButton} size="large" color="secondary">Next</Button>
+                        
                 </div>
             </form>
         </FormProvider>

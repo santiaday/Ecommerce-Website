@@ -2,6 +2,8 @@ import { makeStyles, fade } from '@material-ui/core/styles';
 
 const drawerWidth = 0;
 
+
+
 export default makeStyles((theme) => ({
   appBar: {
     boxShadow: 'none',
@@ -12,13 +14,22 @@ export default makeStyles((theme) => ({
     },
   },
   title: {
-    flexGrow: 1,
     alignItems: 'center',
     display: 'flex',
     textDecoration: 'none',
   },
   image: {
   },
+
+  badge: {
+    position: "absolute",
+    minWidth: '30px',
+    lineHeight: 1,
+    height: '42px',
+    color: "#FFFFFF",
+    "& .MuiBadge-badge": { fontSize: 13, borderRadius: 25,fontWeight: 700, height: 25, minWidth: 25, backgroundColor: "#71CE7E"},
+  },
+
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {

@@ -27,4 +27,21 @@ export default makeStyles((theme) => ({
     width: '100%',
     justifyContent: 'space-between',
   },
+  outlinedPrimary: {
+    color: theme.palette.primary.main,
+    border: "2px solid",
+    '&:hover': {
+      border: "2px solid #3254AA",
+      backgroundColor: theme.palette.primary.main,
+      color: '#FFFFFF'
+    }
+  },
+  outlinedSecondary: {
+    color: "#FFFFFF",
+    '&:hover': {
+      border: "2px solid {theme.palette.secondary.main}",
+      backgroundColor: theme.palette.secondary.main,
+      color: '#FFFFFF'
+    }
+  },
 }));

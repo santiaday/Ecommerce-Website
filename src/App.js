@@ -2,6 +2,7 @@ import React, { useState , useEffect} from 'react';
 //import Products from './Components/Products/Products';
 //import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import GlobalStyle from './globalStyles';
 
 import { Products, Navbar, Cart, Checkout } from './Components';
 import { commerce } from './lib/commerce';
@@ -75,6 +76,7 @@ const App = () => {
   return (
     <Router>
   <div>
+        <GlobalStyle />
         <Navbar totalItems={cart.total_items}/>
         <Routes>
           <Route exact path = "/" element={<Products products={products} onAddToCart={handleAddToCart}/>} />
