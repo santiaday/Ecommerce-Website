@@ -7,14 +7,13 @@ const GlobalStyle = createGlobalStyle`
 }
 
 html {
-  overflow:   scroll;
+  overflow:   auto;
   overflow-x: auto;
   
 }
 ::-webkit-scrollbar {
     width: 0px;
-    background: transparent; /* make scrollbar transparent */
-}
+    background: transparent;
 `;
  
 export default GlobalStyle;

@@ -4,7 +4,7 @@ import React, { useState , useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './globalStyles';
 
-import { Products, Navbar, Cart, Checkout } from './Components';
+import { Products, Navbar, Cart, Checkout, Homepage } from './Components';
 import { commerce } from './lib/commerce';
 
 const App = () => {
@@ -79,7 +79,8 @@ const App = () => {
         <GlobalStyle />
         <Navbar totalItems={cart.total_items}/>
         <Routes>
-          <Route exact path = "/" element={<Products products={products} onAddToCart={handleAddToCart}/>} />
+          <Route exact path = "/" element={<Homepage />} />
+          <Route exact path = "/products" element={<Products products={products} onAddToCart={handleAddToCart}/>} />
           <Route exact path = "/cart" element={<Cart 
           cart={cart}
           handleUpdateCartQty={handleUpdateCartQty} 

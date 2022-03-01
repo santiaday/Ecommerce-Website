@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { InputLabel, Select, MenuItem, Button, Grid, Typography } from '@material-ui/core';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
+import { useForm, FormProvider} from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 import {commerce} from '../../lib/commerce';
 
@@ -11,13 +12,6 @@ import makeStyles from './addressFormStyles';
 const AddressForm = ({ checkoutToken, next }) => {
     const classes = makeStyles();
     const methods = useForm();
-    const { handleSubmit, control, errors, setValue } = useForm({
-        defaultValues: {"shippingCountry": "Something"}
-    });
-
-    useEffect(() => {
-          setValue("shippingCountry", "India");
-      });
 
 
     const [shippingCountries, setShippingCountries] = useState([]);
@@ -73,44 +67,40 @@ const AddressForm = ({ checkoutToken, next }) => {
         <Typography variant = "h6" gutterBottom>Shipping Information</Typography>
         <br />
         <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit((data) => next({ ...data, shippingCountry, shippingSubdivision, shippingOption}))} >
+            <form novalidate onSubmit={methods.handleSubmit((data) => next({ ...data, shippingCountry, shippingSubdivision, shippingOption}))} >
                 <Grid container spacing={3}>
-                    <FormInput required name="firstName" label="First Name"/>
+                    <FormInput required name="firstName" label="First Name" />
                     <FormInput required name="lastName" label="Last Name"/>
                     <FormInput required name="email" label="Email"/>
                     <FormInput required name="address1" label="Address"/>
                     <FormInput required name="city" label="City"/>
                     <FormInput required name="ZIP" label="ZIP / Postal Code"/>
-                    <Grid item xs={12} sm={6}>
-                        <InputLabel>Shipping Country</InputLabel>
-                        <Select variant="outlined" value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
+                <Grid item xs={12} sm={6}>
+                        <TextField style={{ width: "100%" }} variant="outlined" value={shippingCountry} onChange={(e) => setShippingCountry(e.target.value)} select label="Country" >
                             {countries.map((country) => (
-                                <MenuItem key={country.id} value={country.id}>
-                                {country.label}
+                            <MenuItem key={country.id} value={country.id}>
+                            {country.label}
                             </MenuItem>
                             ))}
-                        </Select>
+                        </TextField>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <InputLabel>Shipping Subdivision</InputLabel>
-                        <Select defaultValue={{ label: "Select Shipping Value", value: null}} variant="outlined" value={shippingSubdivision} fullWidth onChange={(e) => setShippingSubdivision(e.target.value)}>
+                    <TextField style={{ width: "100%" }} variant="outlined" value={shippingSubdivision} onChange={(e) => setShippingSubdivision(e.target.value)}  select label="State" >
                             {subdivisions.map((subdivision) => (
-                                <MenuItem key={subdivision.id} value={subdivision.id}>
-                                {subdivision.label}
+                            <MenuItem key={subdivision.id} value={subdivision.id}>
+                            {subdivision.label}
                             </MenuItem>
                             ))}
-                            
-                        </Select>
+                        </TextField>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <InputLabel gutterBottom>Shipping Options</InputLabel>
-                        <Select defaultValue={{ label: "Select Shipping Value", value: {}}} variant="outlined" value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
-                        {options.map((option) => (
-                                <MenuItem key={option.id} value={option.id}>
-                                {option.label}
+                    <TextField style={{ width: "100%" }} variant="outlined" value={shippingOption} onChange={(e) => setShippingOption(e.target.value)}  select label="Option" >
+                            {options.map((option) => (
+                            <MenuItem key={option.id} value={option.id}>
+                            {option.label}
                             </MenuItem>
                             ))}
-                        </Select>
+                        </TextField>
                     </Grid>
                 </Grid>
                 <br />

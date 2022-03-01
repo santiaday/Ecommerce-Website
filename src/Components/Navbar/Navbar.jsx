@@ -15,8 +15,7 @@ const Navbar = ({ totalItems }) => {
         <AppBar style={{ height: '90px'}} position="fixed" className={classes.appBar} color="primary" >
             <Toolbar>
             <Grid container justify="space-between" >  
-                <Typography inline variant="body1" align="left"></Typography>
-                <Typography inline variant="body1" align="center" component = { Link } to="/" className={classes.grow}>
+                <Typography inline variant="body1" align="center" component = { Link } to="/" className={classes.grow} style={{width: "50px"}}>
                     <img src={'jeanLogo.png'} alt="excellent store inc" height="80px" position="absolute" align/>
                 </Typography>
                 <Typography inline variant="body1" className={classes.title} align="center">
