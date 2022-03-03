@@ -1,9 +1,23 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { Translate } from '@material-ui/icons';
+import { keyframes } from 'styled-components';
+
 
 export default makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
+  root: {
+    // maxWidth: 345, original width style
+    maxWidth: '92%',
+    border: "1px solid #3254AA",
+    padding: "10px 10px 10px 10px",
+    boxShadow: "8px 12px #3254AA",
+    marginBottom: "20px",
+    '&:hover': {
+      boxShadow: "13px 17px #3254AA",
+    },
+  },
   title: {
-    marginTop: '5%',
+    marginTop: '50px',
     textAlign:"center",
     width:"100%",
   },
@@ -32,9 +46,13 @@ export default makeStyles((theme) => ({
   media: {
     height: 600,
   },
+  typo: {
+    alignItems: 'center', 
+     justifyContent:'center',
+  },
   cardContent: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    textAlign: 'center',
+    flexGrow: 1,
   },
   cartActions: {
     justifyContent: 'space-between',
@@ -43,4 +61,11 @@ export default makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  homepageLabels: {
+    fontSize: "36px",
+  },
+  divider: {
+    color: "#3254AA",
+    borderBottom: "2px solid"
+  }
 }));

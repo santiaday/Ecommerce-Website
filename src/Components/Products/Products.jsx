@@ -8,7 +8,9 @@ const Products = ({ products, onAddToCart }) => {
     const classes = useStyles();
 
     return(
+
     <main className={classes.content}>
+        <br />    
         <div className={classes.toolbar}/>
 
         <Grid container justify = 'center' spacing = {4}>
