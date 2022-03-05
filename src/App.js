@@ -79,7 +79,7 @@ const App = () => {
         <GlobalStyle />
         <Navbar totalItems={cart.total_items}/>
         <Routes>
-          <Route exact path = "/" element={<Homepage />} />
+          <Route exact path = "/" element={<Homepage products={products} onAddToCart={handleAddToCart}/>} />
           <Route exact path = "/products" element={<Products products={products} onAddToCart={handleAddToCart}/>} />
           <Route exact path = "/cart" element={<Cart 
           cart={cart}

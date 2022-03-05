@@ -10,10 +10,10 @@ export default makeStyles((theme) => ({
     maxWidth: '92%',
     border: "1px solid #3254AA",
     padding: "10px 10px 10px 10px",
-    boxShadow: "8px 12px #3254AA",
+    boxShadow: "6px 10px 3px 2px #3254AA",
     marginBottom: "20px",
     '&:hover': {
-      boxShadow: "13px 17px #3254AA",
+      boxShadow: "10px 14px 3px 2px #3254AA",
     },
   },
   title: {
@@ -67,5 +67,17 @@ export default makeStyles((theme) => ({
   divider: {
     color: "#3254AA",
     borderBottom: "2px solid"
-  }
+  },
+  dividerText: {
+    color: "#3254AA",
+    borderBottom: "2px solid",
+    paddingBottom: "50px",
+    border: "1px solid b"
+  },
+  dividerText: {
+    color: "#3254AA",
+    borderBottom: "2px solid",
+    paddingBottom: "50px",
+    border: "1px solid b"
+  },
 }));

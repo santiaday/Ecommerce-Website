@@ -1,17 +1,62 @@
-import { Container, Typography, Button, Grid, Card, CardActions, CardContent, CardMedia, Divider } from '@material-ui/core';
-import React from 'react'
+import { Container, Typography, Button, Grid, Card, CardContent, CardMedia, Divider } from '@material-ui/core';
+import React, { useState , useEffect} from 'react';
 import useStyles from './styles';
 import { Link } from 'react-router-dom';
+import Product from '../Products/Product/Product.jsx';
+import { commerce } from '../../lib/commerce';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import Carousel from "react-elastic-carousel";
+import './carouselStyles.css'
+
+const Homepage = ({ onAddToCart}) => {
+
+  const breakPoints = [
+    { width: 1, itemsToShow: 1, slidesToSlide: 1},
+    { width: 550, itemsToShow: 2, slidesToSlide: 2},
+    { width: 768, itemsToShow: 3, slidesToSlide: 3},
+    { width: 1200, itemsToShow: 4, slidesToSlide: 4},
+  ];
+
+const [newProducts, setNewProducts] = useState([]);
+const [hotProducts, setHotProducts] = useState([]);
+
+const fetchNewProducts = async () => {
+  const { data } = await commerce.products.list({
+    limit: 12,
+    sortBy: "created",
+    sortDirection: "desc",
+  });
+
+  setNewProducts(data);
+};
 
 
-const Homepage = () => {
+const fetchHotProducts = async () => {
+  const { data } = await commerce.products.list({
+    limit: 12,
+    sortBy: "created",
+    sortDirection: "desc",
+    category_slug: ['HotSeller']
+  });
+
+  setHotProducts(data);
+};
 
 const classes = useStyles();
+
+useEffect(() => {
+
+  fetchNewProducts();
+  fetchHotProducts();
+
+}, []);
 
   return (
       <Container fullWidth>
         <div className={classes.toolbar} />
-        <Typography className={classes.title} variant="h2" gutterBottom><span style={{color: "#71CE7E"}}>Welcome To</span> <span style={{color: "#3254AA"}}>Excellent Store Inc.</span></Typography>
+        <Typography className={classes.title} variant="h2"><span style={{color: "#3254AA"}}>Welcome To</span> <span style={{color: "#71CE7E"}}>Excellent Store Inc.</span></Typography>
+        <Typography className={classes.title} variant="h4" gutterBottom style={{marginTop: '10px'}}><span style={{color: "#3254AA"}}>Toy Collecting, </span> <span style={{color: "#71CE7E"}}>Simplified.</span></Typography>
         <br />
         
 
@@ -25,7 +70,7 @@ const classes = useStyles();
 
                   <div className={classes.cardContent}>
                     <Typography variant="h5" gutterBottom align="center" className={classes.homepageLabels}>
-                      Shop our Popular Products
+                    <span style={{color: "#3254AA"}}>Browse Our </span> <span style={{color: "#71CE7E"}}>Popular Products</span>
                     </Typography>
                   </div>
                 </CardContent>
@@ -42,7 +87,7 @@ const classes = useStyles();
 
                   <div className={classes.cardContent}>
                     <Typography variant="h5" gutterBottom align="center" className={classes.homepageLabels}>
-                      Browse All Products
+                    <span style={{color: "#3254AA"}}>Browse Our</span> <span style={{color: "#71CE7E"}}>Complete Collection</span>
                     </Typography>
                   </div>
                 </CardContent>
@@ -51,15 +96,41 @@ const classes = useStyles();
           </Grid>
         </Grid>
 
-        <Typography className={classes.title} variant="h3" gutterBottom><span style={{color: "#71CE7E"}}>Featured</span> <span style={{color: "#3254AA"}}>New Arrivals</span></Typography>
-        <Grid xs={6} sm={3}>
-        {products.map((product) => (
+        <Divider className={classes.divider} style={{paddingTop: "30px", backgroundColor: "white"}}/>
+
+        <Typography className={classes.title} variant="h3" gutterBottom style={{marginTop: "30px"}}><span style={{color: "#71CE7E"}}>Featured</span> <span style={{color: "#3254AA"}}>New Arrivals</span></Typography>
+
+        <Carousel breakPoints={breakPoints} itemsToScroll="3" pagination={false} >
+        {newProducts.map((product) => (
+                <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3} style={{minWidth: "95%"}}>
+                    <Product product={product} onAddToCart={onAddToCart}/>
+                </Grid>
+                ))}
+        </Carousel>
+
+
+
+        {/* <Grid container justify = 'center' spacing = {4} style={{paddingBottom:"30px", overflow: "auto"}} >
+                {newProductsPage1.map((product) => (
+                <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3}>
+                    <Product product={product} onAddToCart={onAddToCart}/>
+                </Grid>
+            ))}  
+          </Grid> */}
+          
+
+        <Divider className={classes.divider} style={{paddingTop: "30px", backgroundColor: "white"}}/>
+          
+        <Typography className={classes.title} variant="h3" gutterBottom style={{marginTop: "30px"}}><span style={{color: "#71CE7E"}}>Featured</span> <span style={{color: "#3254AA"}}>Hot Sellers</span></Typography>
+        <Grid container justify = 'center' spacing = {4} style={{flexGrow: "1"}} alignItems="center">
+
+        {hotProducts.map((product) => (
                 <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3}>
                     <Product product={product} onAddToCart={onAddToCart}/>
                 </Grid>
             ))}
-          </Grid>
 
+          </Grid>
     </Container>
 
     
