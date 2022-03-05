@@ -1,0 +1,8 @@
+.MuiTouchRipple-root {
+    color: #3254AA !important;
+}
+
+.MuiIconButton-root:hover {
+    color: rgba(50, 84, 170, 0.2) !important;
+    background-color: rgba(50, 84, 170, 0.1) !important;
+}

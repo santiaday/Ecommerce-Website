@@ -27,14 +27,3 @@
     border: 1px solid gray;
     color: gray;
 }
-
-.MuiTouchRipple-root:active,
-.MuiTouchRipple-root:hover {
-    color: #3254AA !important;
-    background-color: #3254AA;
-}
-
-.MuiSvgIcon-root {
-    color: #3254AA;
-}
-

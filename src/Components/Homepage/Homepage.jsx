@@ -107,30 +107,17 @@ useEffect(() => {
                 </Grid>
                 ))}
         </Carousel>
-
-
-
-        {/* <Grid container justify = 'center' spacing = {4} style={{paddingBottom:"30px", overflow: "auto"}} >
-                {newProductsPage1.map((product) => (
-                <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3}>
-                    <Product product={product} onAddToCart={onAddToCart}/>
-                </Grid>
-            ))}  
-          </Grid> */}
           
-
         <Divider className={classes.divider} style={{paddingTop: "30px", backgroundColor: "white"}}/>
           
         <Typography className={classes.title} variant="h3" gutterBottom style={{marginTop: "30px"}}><span style={{color: "#71CE7E"}}>Featured</span> <span style={{color: "#3254AA"}}>Hot Sellers</span></Typography>
-        <Grid container justify = 'center' spacing = {4} style={{flexGrow: "1"}} alignItems="center">
-
+        <Carousel breakPoints={breakPoints} itemsToScroll="3" pagination={false} >
         {hotProducts.map((product) => (
-                <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3}>
+                <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3} style={{minWidth: "95%"}}>
                     <Product product={product} onAddToCart={onAddToCart}/>
                 </Grid>
-            ))}
-
-          </Grid>
+                ))}
+        </Carousel>
     </Container>
 
     
