@@ -4,7 +4,7 @@ import React, { useState , useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './globalStyles';
 
-import { Products, Navbar, Cart, Checkout, Homepage } from './Components';
+import { Products, Navbar, Cart, Checkout, Homepage, ProductDescription } from './Components';
 import { commerce } from './lib/commerce';
 
 const App = () => {
@@ -87,6 +87,7 @@ const App = () => {
           handleRemoveFromCart={handleRemoveFromCart} 
           handleEmptyCart={handleEmptyCart}
           />} />
+          <Route exact path = "/product/:productId" element={<ProductDescription />} />
           <Route exact path = "/checkout" element={<Checkout cart={cart} order = {order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage}/>} />
         </Routes>
   </div>

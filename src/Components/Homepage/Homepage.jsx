@@ -1,11 +1,9 @@
-import { Container, Typography, Button, Grid, Card, CardContent, CardMedia, Divider } from '@material-ui/core';
+import { Container, Typography, Grid, Card, CardContent, CardMedia, Divider } from '@material-ui/core';
 import React, { useState , useEffect} from 'react';
 import useStyles from './styles';
 import { Link } from 'react-router-dom';
 import Product from '../Products/Product/Product.jsx';
 import { commerce } from '../../lib/commerce';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import Carousel from "react-elastic-carousel";
 import './carouselStyles.css'
 
@@ -20,6 +18,7 @@ const Homepage = ({ onAddToCart}) => {
 
 const [newProducts, setNewProducts] = useState([]);
 const [hotProducts, setHotProducts] = useState([]);
+const [preOrders, setPreOrders] = useState([]);
 
 const fetchNewProducts = async () => {
   const { data } = await commerce.products.list({
@@ -43,13 +42,24 @@ const fetchHotProducts = async () => {
   setHotProducts(data);
 };
 
+const fetchPreOrders = async () => {
+  const { data } = await commerce.products.list({
+    limit: 12,
+    sortBy: "created",
+    sortDirection: "desc",
+    category_slug: ['PreOrder']
+  });
+
+  setPreOrders(data);
+};
+
 const classes = useStyles();
 
 useEffect(() => {
 
   fetchNewProducts();
   fetchHotProducts();
-
+  fetchPreOrders();
 }, []);
 
   return (
@@ -118,7 +128,21 @@ useEffect(() => {
                 </Grid>
                 ))}
         </Carousel>
+
+        <Divider className={classes.divider} style={{paddingTop: "30px", backgroundColor: "white"}}/>
+          
+        <Typography className={classes.title} variant="h3" gutterBottom style={{marginTop: "30px"}}><span style={{color: "#71CE7E"}}>Featured</span> <span style={{color: "#3254AA"}}>Pre-Orders</span></Typography>
+        <Carousel breakPoints={breakPoints} itemsToScroll="3" pagination={false} >
+        {preOrders.map((product) => (
+                <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3} style={{minWidth: "95%"}}>
+                    <Product product={product} onAddToCart={onAddToCart}/>
+                </Grid>
+                ))}
+        </Carousel>
+
     </Container>
+
+    
 
     
   )

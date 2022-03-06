@@ -18,7 +18,7 @@ export default makeStyles(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     paddingLeft: "16px",
-    paddingRight: "16px",
+    paddingRight: "0px",
     paddingBottom: "0",
     paddingTop: "0px",
   },
