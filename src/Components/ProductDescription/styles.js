@@ -10,11 +10,7 @@ export default makeStyles((theme) => ({
     maxWidth: '92%',
     border: "1px solid #3254AA",
     padding: "10px 10px 10px 10px",
-    boxShadow: "6px 10px 3px 2px #3254AA",
     marginBottom: "20px",
-    '&:hover': {
-      boxShadow: "10px 14px 3px 2px #3254AA",
-    },
   },
   title: {
     marginTop: '50px',
@@ -45,6 +41,10 @@ export default makeStyles((theme) => ({
   },
   media: {
     height: 600,
+  },
+  thumbnail: {
+    height: 100,
+    width: 100,
   },
   typo: {
     alignItems: 'center', 
