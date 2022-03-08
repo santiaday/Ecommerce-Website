@@ -1,1 +1,15 @@
-@import "~react-image-gallery/styles/css/image-gallery.css";
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+    transform: translate(6px, -15px) scale(0.9) !important;
+}
+
+.MuiListItem-root.Mui-selected {
+    background-color:#FFFFFF !important;
+}
+ 
+ .MuiListItem-root.Mui-selected:hover {
+     background-color:#FFFFFF !important;
+ }
+
+ .MuiSelect-select:focus {
+    background-color:#FFFFFF !important;
+ }

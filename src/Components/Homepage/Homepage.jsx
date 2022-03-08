@@ -12,7 +12,7 @@ const Homepage = ({ onAddToCart}) => {
   const breakPoints = [
     { width: 1, itemsToShow: 1, slidesToSlide: 1},
     { width: 550, itemsToShow: 2, slidesToSlide: 2},
-    { width: 768, itemsToShow: 3, slidesToSlide: 3},
+    { width: 768, itemsToShow: 4, slidesToSlide: 3},
     { width: 1200, itemsToShow: 4, slidesToSlide: 4},
   ];
 

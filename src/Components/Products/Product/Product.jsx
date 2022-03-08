@@ -8,20 +8,25 @@ import './productStyles.css'
 
 const Product = ({ product, onAddToCart }) => {
   const classes = useStyles(); 
+//   let [productBrand, setProductBrand] = useState([]);
+//   setProductBrand(product.attributes[0].value);
 
   return(
 <Link to={`/product/${product.id}`} params={{productId: product.id}} style={{textDecoration:'none'}}>
    <Card className={classes.root}>
-           <CardMedia className={classes.media} image={product.image.url} title={product.name}/>
-           <CardContent style={{height: "120px", paddingBottom: "0px"}}>
+           <CardMedia  className={classes.media} image={product.image.url} title={product.name} style={{paddingTop: "200px"}}/>
+           <CardContent style={{height: "70px", paddingBottom: "0px"}}>
                <div className={classes.cardContent}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography style={{fontSize:"15px"}} gutterBottom>
                         {product.name}
                     </Typography>
                </div>
-               <Typography dangerouslySetInnerHTML={{ __html: product.description}} variant="body2" color="textSecondary"></Typography>
+               {/* <Typography variant="subtitle1" style={{ fontStyle: 'italic' }} gutterBottom>
+                        {product.attributes[0].value}
+                    </Typography> */}
+               {/* <Typography dangerouslySetInnerHTML={{ __html: product.description}} variant="body2" color="textSecondary" noWrap style={{overflow:"hidden"}}></Typography> */}
            </CardContent>
-           <CardActions disableSpacing className ={classes.cardActions} style={{justifyContent: 'space-between'}}>
+           <CardActions disableSpacing className ={classes.cardActions} style={{justifyContent: 'space-between', paddingTop:"15px"}}>
            <Typography variant="h5" align="left">
                         {product.price.formatted_with_symbol}
                     </Typography>

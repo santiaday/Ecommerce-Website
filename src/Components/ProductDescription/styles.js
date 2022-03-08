@@ -80,4 +80,8 @@ export default makeStyles((theme) => ({
     paddingBottom: "50px",
     border: "1px solid b"
   },
+  smallText: {
+    color: "#C2C2C2",
+    fontWeight: 200,
+  }
 }));

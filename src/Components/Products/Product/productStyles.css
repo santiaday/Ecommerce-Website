@@ -10,3 +10,7 @@
 .CustomButton:hover {
     background-color: transparent !important;
 }
+
+.MuiCardMedia-root {
+    background-size: contain !important;
+}

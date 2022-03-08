@@ -3,12 +3,18 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 
 * { 
-  font-family: 'Righteous', cursive !important;
+  font-family: 'League Spartan', sans-serif !important;
+}
+
+body {
+  overflow-y: visible;
+  scroll-behavior: auto;
 }
 
 html {
   overflow:   auto;
   overflow-x: auto;
+
   
 }
 ::-webkit-scrollbar {

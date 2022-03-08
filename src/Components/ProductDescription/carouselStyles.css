@@ -1,0 +1,29 @@
+.rec-item-wrapper {
+    height: 400px
+}
+
+.rec.rec-arrow {
+    background-color: white;
+    color: #3254AA;
+    border: 1px solid #3254AA;
+}
+
+.rec.rec-arrow:hover {
+    background-color: #3254AA;
+    color: white;
+    border: 1px solid #3254AA;
+}
+
+.jRFJkP:hover:enabled, .jRFJkP:focus:enabled {
+    background-color: #3254AA !important;
+    color: white !important;
+    border: 1px solid #3254AA !important;
+}
+
+.cNNJIt:disabled,
+.cNNJIt:disabled:hover {
+    cursor: not-allowed;
+    background-color: white;
+    border: 1px solid gray;
+    color: gray;
+}
