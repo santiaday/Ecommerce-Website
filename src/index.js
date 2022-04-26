@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';  
+import Button from 'react-bootstrap/Button';
 
 const theme = createTheme({
     palette: {

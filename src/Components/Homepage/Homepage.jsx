@@ -12,8 +12,8 @@ const Homepage = ({ onAddToCart}) => {
   const breakPoints = [
     { width: 1, itemsToShow: 1, slidesToSlide: 1},
     { width: 550, itemsToShow: 2, slidesToSlide: 2},
-    { width: 768, itemsToShow: 4, slidesToSlide: 3},
-    { width: 1200, itemsToShow: 4, slidesToSlide: 4},
+    { width: 768, itemsToShow: 3, slidesToSlide: 3},
+    { width: 1108, itemsToShow: 4, slidesToSlide: 3},
   ];
 
 const [newProducts, setNewProducts] = useState([]);
@@ -110,7 +110,7 @@ useEffect(() => {
 
         <Typography className={classes.title} variant="h3" gutterBottom style={{marginTop: "30px"}}><span style={{color: "#71CE7E"}}>Featured</span> <span style={{color: "#3254AA"}}>New Arrivals</span></Typography>
 
-        <Carousel breakPoints={breakPoints} itemsToScroll="3" pagination={false} >
+        <Carousel breakPoints={breakPoints} pagination={false} >
         {newProducts.map((product) => (
                 <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3} style={{minWidth: "95%"}}>
                     <Product product={product} onAddToCart={onAddToCart}/>
@@ -121,7 +121,7 @@ useEffect(() => {
         <Divider className={classes.divider} style={{paddingTop: "30px", backgroundColor: "white"}}/>
           
         <Typography className={classes.title} variant="h3" gutterBottom style={{marginTop: "30px"}}><span style={{color: "#71CE7E"}}>Featured</span> <span style={{color: "#3254AA"}}>Hot Sellers</span></Typography>
-        <Carousel breakPoints={breakPoints} itemsToScroll="3" pagination={false} >
+        <Carousel breakPoints={breakPoints} pagination={false} >
         {hotProducts.map((product) => (
                 <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3} style={{minWidth: "95%"}}>
                     <Product product={product} onAddToCart={onAddToCart}/>
@@ -132,7 +132,7 @@ useEffect(() => {
         <Divider className={classes.divider} style={{paddingTop: "30px", backgroundColor: "white"}}/>
           
         <Typography className={classes.title} variant="h3" gutterBottom style={{marginTop: "30px"}}><span style={{color: "#71CE7E"}}>Featured</span> <span style={{color: "#3254AA"}}>Pre-Orders</span></Typography>
-        <Carousel breakPoints={breakPoints} itemsToScroll="3" pagination={false} >
+        <Carousel breakPoints={breakPoints} pagination={false} >
         {preOrders.map((product) => (
                 <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3} style={{minWidth: "95%"}}>
                     <Product product={product} onAddToCart={onAddToCart}/>

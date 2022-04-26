@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton, Button} from '@material-ui/core'
 import { AddShoppingCart } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import useStyles from './styles';
-import './productStyles.css'
+import './productStyles.css';
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
 
 const Product = ({ product, onAddToCart }) => {
   const classes = useStyles(); 
 //   let [productBrand, setProductBrand] = useState([]);
 //   setProductBrand(product.attributes[0].value);
+const { height, width } = useWindowDimensions();
+
+const isSmallScreen = (width <= 400);
 
   return(
 <Link to={`/product/${product.id}`} params={{productId: product.id}} style={{textDecoration:'none'}}>
@@ -31,7 +57,9 @@ const Product = ({ product, onAddToCart }) => {
                         {product.price.formatted_with_symbol}
                     </Typography>
                 <IconButton className={"CustomButton"} alignItems="center">
-                    <Button onClick={() => onAddToCart(product.id, 1)} size="medium" type="button" variant="contained" color="primary" style={{paddingRight:"7px", paddingLeft:"7px"}}>Add To Cart<AddShoppingCart style={{paddingLeft:"4px",fontSize:"20px"}}/></Button>
+                    {isSmallScreen ?
+                      <Button onClick={() => onAddToCart(product.id, 1)} size="medium" type="button" variant="contained" color="primary" style={{paddingRight:"7px", paddingLeft:"7px"}}><AddShoppingCart style={{paddingLeft:"4px",fontSize:"20px"}}/></Button>
+                      : <Button onClick={() => onAddToCart(product.id, 1)} size="medium" type="button" variant="contained" color="primary" style={{paddingRight:"7px", paddingLeft:"7px"}}>Add To Cart<AddShoppingCart style={{paddingLeft:"4px",fontSize:"20px"}}/></Button>}
                 </IconButton>
            </CardActions>
   </Card>
