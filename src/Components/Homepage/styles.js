@@ -65,19 +65,15 @@ export default makeStyles((theme) => ({
     fontSize: "36px",
   },
   divider: {
-    color: "#3254AA",
-    borderBottom: "2px solid"
-  },
-  dividerText: {
-    color: "#3254AA",
+    color: "#71CE7E",
     borderBottom: "2px solid",
-    paddingBottom: "50px",
-    border: "1px solid b"
+    width: "10vw" , 
+    display: "block" , 
+    margin: "0 auto"
   },
-  dividerText: {
-    color: "#3254AA",
-    borderBottom: "2px solid",
-    paddingBottom: "50px",
-    border: "1px solid b"
+  loader: {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
   },
 }));

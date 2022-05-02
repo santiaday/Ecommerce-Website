@@ -18,12 +18,6 @@ function SearchBar({products}) {
         setKeyword(e.target.value);
     }
 
-
-
-
-
-
-
   return (
     <div>
         <TextField

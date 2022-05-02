@@ -8,8 +8,6 @@ const SearchResults = ({products, onAddToCart}) => {
 
 const classes = useStyles();
 
-const[filteredProducts, setFilteredProducts] = useState([]);
-
 const temp = useParams();
 const keyword = temp.keyword;
 console.log(keyword);

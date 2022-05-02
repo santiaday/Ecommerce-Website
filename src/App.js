@@ -1,5 +1,5 @@
 import React, { useState , useEffect} from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import GlobalStyle from './globalStyles';
 
 import { Products, Navbar, Cart, Checkout, Homepage, ProductDescription, SearchResults } from './Components';
@@ -11,6 +11,7 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, isLoading] = useState(true);
 
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
@@ -62,11 +63,13 @@ const App = () => {
       setErrorMessage(error.data.error.message);
     }
   }
+  
 
   useEffect(() => {
 
     fetchProducts()
     fetchCart();
+    isLoading(false);
   
   }, []);
 
@@ -85,7 +88,7 @@ const App = () => {
           handleRemoveFromCart={handleRemoveFromCart} 
           handleEmptyCart={handleEmptyCart}
           />} />
-          <Route exact path = "/product/:productId" element={<ProductDescription onAddToCart={handleAddToCart}/>} />
+          <Route path = "/product/:productId" element={<ProductDescription onAddToCart={handleAddToCart} />} />
           <Route exact path = "/search=:keyword" element={<SearchResults products={products} onAddToCart={handleAddToCart}/>} />
           <Route exact path = "/checkout" element={<Checkout cart={cart} order = {order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage}/>} />
         </Routes>

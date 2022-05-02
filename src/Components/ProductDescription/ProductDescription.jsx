@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Button, Grid, Card, CardContent, CardMedia, Divider, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link , useLocation } from 'react-router-dom';
 import useStyles from './styles';
 import { commerce } from '../../lib/commerce';
 import { AddShoppingCart } from '@material-ui/icons';
@@ -8,14 +8,15 @@ import './styles.css';
 import Product from '../Products/Product/Product.jsx';
 import Carousel from "react-elastic-carousel";
 import './carouselStyles.css'
-
-console.log("Made it here");
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 let ProductDescription = ({onAddToCart}) => {
   let temp = useParams();
   let productId = temp.productId;
 
   const classes = useStyles();
+
+  const location = useLocation();
 
   const breakPoints = [
     { width: 1, itemsToShow: 1, slidesToSlide: 1},
@@ -34,6 +35,9 @@ let [productPrice, setProductPrice] = useState([]);
 let [productInventory, setProductInventory] = useState([]);
 let [productQuantity, setProductQuantity] = useState([]);
 let [relatedProducts, setRelatedProducts] = useState([]);
+let [currentPath, setCurrentPath] = useState("");
+let [isLoading, setIsLoading] = useState(true);
+
 
 
 let fetchProduct = async () => {
@@ -47,27 +51,35 @@ let fetchProduct = async () => {
   setProductPrice(product.price.formatted_with_symbol);
   setProductInventory(product.inventory.available);
   setRelatedProducts(product.related_products);
+
+  setIsLoading(false);
 };
 
+const relatedProductsFin = async () => {await Promise.all(relatedProducts.map(async (i) => {await commerce.products.retrieve(i.id)}))}
 
+console.log(relatedProductsFin);
 
 
 useEffect(() => {
 
   fetchProduct();
+  window.scrollTo(0 ,0);
+  setCurrentPath("product/" + productId);
+  
+}, [location]);
 
-}, []);
-
-console.log(product);
-console.log(productFeaturedImage);
-console.log(productImages);
-console.log(productCategory);
-console.log(productPrice);
-console.log(productInventory);
-console.log(relatedProducts);
+const override = `
+  display: block;
+  margin: 0 auto;
+  color: #3254AA;
+  top: 40vh;
+  transition: all 5s linear;
+`;
 
 
   return (
+    isLoading ? <PacmanLoader color={'#3254AA'} isLoading={isLoading} size={100} style={{opacity: "0"}} css={override}/> : 
+
     <Container>
     
 
@@ -126,7 +138,8 @@ console.log(relatedProducts);
 <Carousel breakPoints={breakPoints} itemsToScroll="3" pagination={false} >
         {relatedProducts.map((product) => (
                 <Grid item key = {product.id} xs={12} sm={6} md={4} lg={3} style={{minWidth: "95%"}}>
-                    <Product product={product} onAddToCart={onAddToCart}/>
+                    <Product product={product} onAddToCart={onAddToCart} />
+                    {/* {console.log(product)} */}
                 </Grid>
                 ))}
         </Carousel>
