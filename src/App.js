@@ -2,7 +2,7 @@ import React, { useState , useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import GlobalStyle from './globalStyles';
 
-import { Products, Navbar, Cart, Checkout, Homepage, ProductDescription, SearchResults } from './Components';
+import { Products, Navbar, Cart, Checkout, Homepage, ProductDescription, SearchResults, LoginForm } from './Components';
 import { commerce } from './lib/commerce';
 
 
@@ -17,7 +17,21 @@ const App = () => {
     const { data } = await commerce.products.list();
 
     setProducts(data);
-  };
+
+
+    Promise.all(
+      data.map(async(p) => {
+      const productId = p.id;
+      const product = {productId};
+      console.log(product)
+      return(
+      fetch("http://localhost:8080/product/updateTable", {
+        method: "POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(product), 
+      }
+    ))
+  }))}
 
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
@@ -91,6 +105,7 @@ const App = () => {
           <Route path = "/product/:productId" element={<ProductDescription onAddToCart={handleAddToCart} />} />
           <Route exact path = "/search=:keyword" element={<SearchResults products={products} onAddToCart={handleAddToCart}/>} />
           <Route exact path = "/checkout" element={<Checkout cart={cart} order = {order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage}/>} />
+          <Route exact path = "/login-form" element={<LoginForm />} />
         </Routes>
   </div>
   </Router>
