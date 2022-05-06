@@ -2,7 +2,7 @@ import React, { useState , useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import GlobalStyle from './globalStyles';
 
-import { Products, Navbar, Cart, Checkout, Homepage, ProductDescription, SearchResults, LoginForm } from './Components';
+import { Products, Navbar, Cart, Checkout, Homepage, ProductDescription, SearchResults, LoginForm, CreateAccountForm, Confirmation } from './Components';
 import { commerce } from './lib/commerce';
 
 
@@ -106,6 +106,8 @@ const App = () => {
           <Route exact path = "/search=:keyword" element={<SearchResults products={products} onAddToCart={handleAddToCart}/>} />
           <Route exact path = "/checkout" element={<Checkout cart={cart} order = {order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage}/>} />
           <Route exact path = "/login-form" element={<LoginForm />} />
+          <Route exact path = "/create-account-form" element={<CreateAccountForm />} />
+          <Route exact path = "/confirmation-:email" element={<Confirmation />} />
         </Routes>
   </div>
   </Router>

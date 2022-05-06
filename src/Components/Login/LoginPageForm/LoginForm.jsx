@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { InputLabel, Select, MenuItem, Button, Grid, Typography, Paper, CssBaseline, Container} from '@material-ui/core';
 import { useForm, FormProvider} from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 
 
@@ -16,34 +16,36 @@ const LoginForm = () => {
     const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"}
     const classes = makeStyles();
     const methods = useForm();
+    const navigate = useNavigate()
 
-    const [address, setAddress] = useState("");
-    const [name, setName] = useState("");
-    const [students, setStudents] = useState([]);
+    const[username, setUsername] = useState("");
+    const[password, setPassword] = useState("");
+    const[userExists, setUserExists] = useState("0");
 
      const handleClick = (e) => {
          e.preventDefault();
-         const student = {name, address};
-         console.log(student);
+         const user = {username, password};
 
-         fetch("http://localhost:8080/student/add", {
+         fetch("http://localhost:8080/user/checkUser", {
          method: "POST",
          headers:{"Content-Type":"application/json"},
-         body:JSON.stringify(student),
-     }).then(() => {
-         console.log(student);
-     })
+         body:JSON.stringify(user),
+     }).then(res => res.json())
+       .then((result) => {
+           console.log(result);
+           if(result == 1){
+           navigate("/");
+           }else{
+            setUserExists(result);
+           }
+       })
      }
 
-     useEffect(() => {
-         fetch("http://localhost:8080/student/getAll")
-         .then(res => res.json())
-         .then((result) => {
-             setStudents(result);
-         })
-     })
+    const handleCreateAccount = () => {
+        navigate("/create-account-form");
+    }
 
-
+     console.log("USER" + userExists);
   return (
 <>
 <Container fullWidth>
@@ -57,15 +59,15 @@ const LoginForm = () => {
                     <br />
                     <form className={classes.root} noValidate autoComplete="off">
                     <TextField label="Username/Email" variant='standard' fullWidth 
-                        value={name}
-                        onChange={(e)=>setName(e.target.value)}
+                        value={username}
+                        onChange={(e)=>setUsername(e.target.value)}
                         style={{paddingBottom: "25px"}}
                         inputProps={{style: {fontSize: 25}}}
                         InputLabelProps={{style: {fontSize: 25}}}
                     />
                     <TextField label="Password" variant='standard' fullWidth
-                        value={address}
-                        onChange={(e)=>setAddress(e.target.value)}
+                        value={password}
+                        onChange={(e)=>setPassword(e.target.value)}
                         style={{paddingBottom: "10px"}}
                         inputProps={{style: {fontSize: 25}}}
                         InputLabelProps={{style: {fontSize: 25}}}
@@ -75,6 +77,7 @@ const LoginForm = () => {
                     <Button variant="contained" color="primary" onClick={handleClick} style={{float: "right", transform: "translateY(6px)"}}>
                         Sign In
                     </Button>
+                    {userExists == -1 ? <Typography variant="body2" align="left" style={{paddingTop: "20px", marginLeft: "0px"}}>User Not Found</Typography> : <></>}
                     </div>
                 </form>
             </Paper>
@@ -97,7 +100,7 @@ const LoginForm = () => {
                     </Typography>
                     <Typography variant="h5" align="left">...and more!</Typography>
                     <div style={{paddingBottom: "48px"}}>
-                    <Button variant="contained" color="primary" onClick={handleClick} style={{float: "right"}}>
+                    <Button variant="contained" color="primary" onClick={handleCreateAccount} style={{float: "right"}}>
                         Create An Account
                     </Button>
                     </div>
