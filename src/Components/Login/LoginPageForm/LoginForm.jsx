@@ -16,11 +16,22 @@ const LoginForm = () => {
     const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"}
     const classes = makeStyles();
     const methods = useForm();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const breakPoints = [
+        { width: 1, itemsToShow: 1, slidesToSlide: 1},
+        { width: 550, itemsToShow: 2, slidesToSlide: 2},
+        { width: 768, itemsToShow: 3, slidesToSlide: 3},
+        { width: 1108, itemsToShow: 4, slidesToSlide: 3},
+      ];
 
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const[userExists, setUserExists] = useState("0");
+
+    const handleLinkClick = () => {
+        navigate("/password-reset");
+    }
 
      const handleClick = (e) => {
          e.preventDefault();
@@ -45,13 +56,12 @@ const LoginForm = () => {
         navigate("/create-account-form");
     }
 
-     console.log("USER" + userExists);
   return (
 <>
 <Container fullWidth>
 <div className={classes.toolbar} />
-    <Grid item container spacing={12}>
-        <Grid xs={12} sm={6} lg={6}>
+    <Grid item container spacing={12} sm={12} md={12} lg={12} xs={12}>
+        <Grid md={12} lg={6} sm={12} xs={12}>
             <div className={classes.root}>
                 <div className = {classes.toolbar} />
                     <Paper className={classes.paper}>
@@ -72,19 +82,20 @@ const LoginForm = () => {
                         inputProps={{style: {fontSize: 25}}}
                         InputLabelProps={{style: {fontSize: 25}}}
                     />
-                    <Typography variant="body2" align="left" style={{paddingBottom: "15px", marginLeft: "0px"}}>Forgot Password?</Typography>
+                    <Typography variant="body2" align="left" style={{paddingBottom: "15px", marginLeft: "0px"}} className={classes.links} onClick={handleLinkClick}>Forgot Password?</Typography>
                     <div style={{paddingBottom: "25px"}}>
                     <Button variant="contained" color="primary" onClick={handleClick} style={{float: "right", transform: "translateY(6px)"}}>
                         Sign In
                     </Button>
-                    {userExists == -1 ? <Typography variant="body2" align="left" style={{paddingTop: "20px", marginLeft: "0px"}}>User Not Found</Typography> : <></>}
+                    {userExists == -1 ? <Typography variant="body2" align="left" style={{marginLeft: "0px", height: "0px",  transform: "translateY(20px)"}}>User Not Found</Typography> : <></>}
+                    {userExists == -2 ? <Typography variant="body2" align="left" style={{marginLeft: "0px", height: "0px",  transform: "translateY(20px)"}}>Account Not Activated</Typography> : <></>}
                     </div>
                 </form>
             </Paper>
             </div>
         </Grid>
 
-        <Grid xs={12} sm={6} lg={6}>
+        <Grid md={12} lg={6} sm={12} xs={12}>
             <div className={classes.root}>
                 <div className = {classes.toolbar} />
                     <Paper className={classes.paper}>

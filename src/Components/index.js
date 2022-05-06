@@ -8,3 +8,5 @@ export { default as SearchResults } from './Navbar/SearchBar/SearchResults/Searc
 export { default as LoginForm } from './Login/LoginPageForm/LoginForm';
 export { default as CreateAccountForm } from './Login/CreateAccountForm/CreateAccountForm';
 export { default as Confirmation } from './Login/CreateAccountForm/Confirmation/Confirmation';
+export { default as LinkConfirmationPage } from './Login/CreateAccountForm/Confirmation/LinkConfirmationPage/LinkConfirmationPage';
+export { default as PasswordResetPage } from './Login/LoginPageForm/PasswordResetPage/PasswordResetPage';

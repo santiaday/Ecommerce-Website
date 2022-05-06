@@ -22,7 +22,6 @@ const CreateAccountForm = () => {
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const[passwordConfirm, setPasswordConfirm] = useState("");
-    const[userExists, setUserExists] = useState("0");
     const[passwordsMatch, setPasswordsMatch] = useState("0");
     const[fieldsFilled, setFieldsFilled] = useState("0");
     const[validEmail, setValidEmail] = useState("0");
@@ -34,6 +33,7 @@ const CreateAccountForm = () => {
     const[authLevel, setAuthLevel] = useState("User");
     const[emailExists,setEmailExists] = useState("");
     const[usernameExists, setUsernameExists] = useState("User");
+    const[userEnabled, setUserEnabled] = useState("0");
 
      const handleClick = (e) => {
          e.preventDefault();
@@ -74,10 +74,8 @@ const CreateAccountForm = () => {
 
         if(tempName.length <= 1){
             setValidName(-1);
-            console.log(tempName);
             return;
         }else{
-            console.log(tempName);
             setValidName(1);
         }
 
@@ -109,8 +107,8 @@ const CreateAccountForm = () => {
             setPasswordLength(1);
         }
 
-         const user = {username, password, email, name, authLevel};
-         console.log(user);
+         const user = {username, password, email, name, authLevel, userEnabled};
+
 
          fetch("http://localhost:8080/user/checkCreateUser", {
          method: "POST",
@@ -119,7 +117,7 @@ const CreateAccountForm = () => {
      }).then(result => result.json())
         .then((result) => {
             if(result == 1){
-                setUserExists(-1);
+                setUsernameExists(-1);
                 setEmailExists(-1);
 
                 fetch("http://localhost:8080/user/add", {
@@ -128,12 +126,11 @@ const CreateAccountForm = () => {
                 body:JSON.stringify(user)
      })
              navigate('/confirmation-' + email, {state: {email: email}});
-             console.log(email);
             }else if(result == 2){
                 setEmailExists(1);
                 return;
             }else if(result == 3){
-                setUserExists(1);
+                setUsernameExists(1);
                 return;
             }
         })

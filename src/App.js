@@ -2,7 +2,9 @@ import React, { useState , useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import GlobalStyle from './globalStyles';
 
-import { Products, Navbar, Cart, Checkout, Homepage, ProductDescription, SearchResults, LoginForm, CreateAccountForm, Confirmation } from './Components';
+import { Products, Navbar, Cart, Checkout, Homepage, ProductDescription, 
+  SearchResults, LoginForm, CreateAccountForm, Confirmation, LinkConfirmationPage,
+PasswordResetPage } from './Components';
 import { commerce } from './lib/commerce';
 
 
@@ -23,7 +25,6 @@ const App = () => {
       data.map(async(p) => {
       const productId = p.id;
       const product = {productId};
-      console.log(product)
       return(
       fetch("http://localhost:8080/product/updateTable", {
         method: "POST",
@@ -108,6 +109,8 @@ const App = () => {
           <Route exact path = "/login-form" element={<LoginForm />} />
           <Route exact path = "/create-account-form" element={<CreateAccountForm />} />
           <Route exact path = "/confirmation-:email" element={<Confirmation />} />
+          <Route exact path = "/link-confirmation-code-token=:token" element={<LinkConfirmationPage />} />
+          <Route exact path = "/password-reset" element={<PasswordResetPage />} />
         </Routes>
   </div>
   </Router>

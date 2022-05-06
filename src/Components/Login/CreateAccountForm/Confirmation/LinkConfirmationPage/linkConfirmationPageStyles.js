@@ -120,14 +120,13 @@ export default makeStyles((theme) => ({
 
   },
   links: {
-    textDecoration: 'none',
-    textDecoration: 'underline',
-    '&:hover': {
-      cursor: "pointer",
-      color: '#3254AA !important',
-    },
-    '&:visited': {
-      color: 'black',
-    }
-}
+      textDecoration: 'none',
+      textDecoration: 'underline',
+      '&:hover': {
+        color: '#3254AA !important',
+      },
+      '&:visited': {
+        color: 'black',
+      }
+  }
 }));

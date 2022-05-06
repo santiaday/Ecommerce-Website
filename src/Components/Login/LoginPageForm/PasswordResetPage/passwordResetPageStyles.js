@@ -123,7 +123,6 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
     textDecoration: 'underline',
     '&:hover': {
-      cursor: "pointer",
       color: '#3254AA !important',
     },
     '&:visited': {
