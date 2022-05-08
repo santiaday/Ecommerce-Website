@@ -13,7 +13,9 @@ const PasswordResetPage = () => {
 
     const[email, setEmail] = useState("");
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault();
+
         fetch("http://localhost:8080/user/resetPassword", {
                 method: "POST",
                 headers:{"Content-Type":"application/json"},
@@ -21,6 +23,12 @@ const PasswordResetPage = () => {
      }).then(result => result.json())
         .then((result) => {
             console.log(result);
+
+            if(result == 1){
+
+            }else if(result == -1){
+                
+            }
         })
     }
 
